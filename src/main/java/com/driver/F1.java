@@ -1,50 +1,65 @@
 package com.driver;
 
-public class F1 extends Car {
+public class Car extends Vehicle {
 
-    public F1(String name, boolean isManual) {
-        //Use arbitrary values for parameters which are not mentioned
-        super(name, 4, 1, 9, isManual, "For1", 1);
+    private int wheels;
+    private String type;
+    private int doors;
+    private int gears;
+    private boolean isManual;
+    private int currentGear;
+    private int seats;
+
+    public Car(String name, int wheels, int doors, int gears, boolean isManual, String type, int seats) {
+        //Hint: Car extends Vehicle
+        super(name);
+        this.wheels = wheels;
+        this.doors = doors;
+        this.gears = gears;
+        this.isManual = isManual;
+        this.type = type;
+        this.seats = seats;
+
+        currentGear = 1;
     }
 
-    public void accelerate(int rate){
-          int newSpeed = getCurrentSpeed() + rate; //set the value of new speed by using currentSpeed and rate
-        /**
-         * speed 0: gear 1
-         * speed 1-50: gear 1
-         * speed 51-100: gear 2
-         * speed 101-150: gear 3
-         * speed 151-200: gear 4
-         * speed 201-250: gear 5
-         * speed more than 250: gear 6
-         */
+    public int getWheels() {
+        return wheels;
+    }
 
-        if (newSpeed == 0) {
-            //Stop the car, set gear as 1
-            stop();
-            changeGear(1);
-        }
-        //for all other cases, change the gear accordingly
+    public int getDoors() {
+        return doors;
+    }
 
-        if (newSpeed > 0) {
-            changeSpeed(newSpeed, getCurrentDirection());
+    public int getGears() {
+        return gears;
+    }
 
-            int gear;
+    public String getType() {
+        return type;
+    }
 
-            if (newSpeed <= 50)
-                gear = 1;
-            else if (newSpeed <= 100)
-                gear = 2;
-            else if (newSpeed <= 150)
-                gear = 3;
-            else if (newSpeed <= 200)
-                gear = 4;
-            else if (newSpeed <= 250)
-                gear = 5;
-            else
-                gear = 6;
+    public boolean isManual() {
+        return isManual;
+    }
 
-            changeGear(gear);
-        }
+    public int getCurrentGear() {
+        return currentGear;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void changeGear(int newGear) {
+        currentGear = newGear;
+
+        System.out.println("changeGear method called - The gear is changed to: " + currentGear);
+    }
+
+    public void changeSpeed(int newSpeed, int newDirection) {
+        move(newSpeed, newDirection);
+
+        System.out.println("changeSpeed method called - The speed is changed to: " + newSpeed + ", and the direction is changed to: " + newDirection + " degrees");
     }
 }
